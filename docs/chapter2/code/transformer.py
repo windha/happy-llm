@@ -325,7 +325,11 @@ class Transformer(nn.Module):
 def main():
     args = ModelArgs(100, 10, 100, 0.1, 512, 1000, 1000, 2)
     text = "我喜欢快乐地学习大模型"
-    tokenizer = BertTokenizer.from_pretrained('bert-base-chinese')
+    try:
+        tokenizer = BertTokenizer.from_pretrained('bert-base-chinese')
+    except Exception as e:
+        print(f"Error loading tokenizer: {e}\nPlease check your internet connection and try again.")
+        return
     inputs_token = tokenizer(
         text,
         return_tensors='pt',
